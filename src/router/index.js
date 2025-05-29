@@ -5,25 +5,25 @@
  */
 
 // Composables
-import { createRouter, createWebHistory } from 'vue-router/auto'
+import { createRouter, createWebHashHistory } from 'vue-router/auto'
 import { setupLayouts } from 'virtual:generated-layouts'
 const base = import.meta.env.BASE_URL || '/folf/'
 const routes = [
 	{
-		path: `/${base}`,
+		path: `/`,
 		name: 'GameSetup',
 		component: () => import('@/pages/GameSetupView.vue'),
 	},
   {
-		path: `/${base}/game/:id`,
+		path: `/game/:id`,
 		name: 'Game',
 		component: () => import('@/pages/GameView.vue'),
 	},
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
-  routes: setupLayouts(routes),
+  history: createWebHashHistory(),
+  routes: routes,
 })
 
 // Workaround for https://github.com/vitejs/vite/issues/11804

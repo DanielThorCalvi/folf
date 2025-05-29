@@ -72,7 +72,7 @@ import { useGameStore } from '@/stores/game';
         return;
       }
 
-      router.push(`folf/game/${game.id}`);
+      router.push(`/game/${game.id}`);
     }
   };
   onMounted(() => {
