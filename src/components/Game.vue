@@ -1,6 +1,5 @@
 <template>
-  <div v-if="gameStore.game && scores">
-    <v-card :height="mobile ? '100vh' : undefined" :width="mobile ? '100vw' : undefined" class="d-flex flex-column">
+    <v-card v-if="gameStore.game && scores" :height="mobile ? '95vh' : undefined" :width="mobile ? '100vw' : undefined" class="d-flex flex-column">
       <v-window v-model="currentHole" class="flex-grow-1" >
         <v-window-item v-for="(hole) in gameStore.game.course.holes" :key="hole.hole_number">
           <v-card-title class="d-flex justify-center">
@@ -27,25 +26,19 @@
       <v-card-actions class="d-flex justify-space-between">
         <v-btn :disabled="currentHole == 0" variant="text" @click="currentHole--" icon="mdi-arrow-left"></v-btn>
         <v-btn icon="mdi-map" @click="mapOpen = true"></v-btn>
-        <v-btn icon="mdi-view-list" @click="mapOpen = true"></v-btn>
+        <v-btn icon="mdi-view-list" @click="scoreOpen = true"></v-btn>
         <v-btn v-if="currentHole < gameStore.game.course.holes.length-1" @click="currentHole++" icon="mdi-arrow-right"></v-btn>
         <v-btn v-else icon="mdi-check" @click="submitGame"></v-btn>
       </v-card-actions>
     </v-card>
 
     <v-dialog v-model="mapOpen" fullscreen>
-      <v-card >
-        <v-card-title class="d-flex justify-center">Klambratún</v-card-title>
-        <v-card-text class="d-flex justify-center flex-column" >
-          <v-img :src="gameStore.game.course.map_url"></v-img>
-        </v-card-text>
-        <v-card-actions class="d-flex justify-space-between">
-          <v-spacer />
-          <v-btn @click="mapOpen=false" icon="mdi-close"></v-btn>
-        </v-card-actions>
-      </v-card>
+      <GameMap @click="mapOpen=false" />
     </v-dialog>
-  </div>
+
+    <v-dialog v-model="scoreOpen" fullscreen>
+      <GameScore @click="scoreOpen=false" :scores="scores" />
+    </v-dialog>
 </template>
 
 <script setup>
@@ -53,7 +46,9 @@
   import { useGameStore } from '@/stores/game';
   import { useRoute } from 'vue-router';
   import { useDisplay } from 'vuetify';
-import { useScoreStore } from '@/stores/score';
+  import { useScoreStore } from '@/stores/score';
+  import GameMap from '@/components/GameMap.vue'
+  import GameScore from '@/components/GameScore.vue'
 
   const { mobile } = useDisplay()
   const gameStore = useGameStore();
@@ -62,6 +57,7 @@ import { useScoreStore } from '@/stores/score';
   const gameId = route.params.id
 
   const mapOpen = ref(false)
+  const scoreOpen = ref(false)
 
   const currentHole = ref(0)
 
@@ -89,13 +85,11 @@ import { useScoreStore } from '@/stores/score';
 
   onMounted(async() => {
     await gameStore.getGameById(gameId)
-    console.log("PLAYERS", gameStore.game.players)
     scores.value = gameStore.game.players.map(() => {
       const scoreByHole = {}
       for (const hole of gameStore.game.course.holes) {
         scoreByHole[hole.id] = null
       }
-      console.log("SCORES", scoreByHole)
       return scoreByHole;
     })
   })

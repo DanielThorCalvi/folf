@@ -5,12 +5,24 @@
  */
 
 // Composables
-import { createRouter, createWebHashHistory } from 'vue-router/auto'
+import { createRouter, createWebHistory } from 'vue-router/auto'
 import { setupLayouts } from 'virtual:generated-layouts'
-import { routes } from 'vue-router/auto-routes'
+const base = import.meta.env.BASE_URL || '/folf/'
+const routes = [
+	{
+		path: `/${base}`,
+		name: 'GameSetup',
+		component: () => import('@/pages/GameSetupView.vue'),
+	},
+  {
+		path: `/${base}/game/:id`,
+		name: 'Game',
+		component: () => import('@/pages/GameView.vue'),
+	},
+]
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes: setupLayouts(routes),
 })
 

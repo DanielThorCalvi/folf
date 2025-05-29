@@ -65,6 +65,12 @@ export const useGameStore = defineStore('game', {
             player: players (
               name
             )
+          ),
+          scores: scores (
+            id,
+            game_player_id,
+            score,
+            hole_id
           )
         `)
         .eq('id', gameId)

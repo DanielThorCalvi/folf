@@ -1,5 +1,5 @@
 <template>
-    <v-card height="100vh" width="100vw" class="d-flex flex-column">
+    <v-card height="95vh" width="100vw" class="d-flex flex-column">
       <v-card-title>Stilla leik</v-card-title>
       <v-card-text class="flex-grow-1">
         <v-form ref="form" v-model="valid">  
@@ -8,7 +8,7 @@
             :items="courseStore.courses"
             item-title="name"
             item-value="id"
-            label="Braut"
+            label="Braut*"
             clearable
             :rules="[rules.required]"
             required
@@ -16,8 +16,9 @@
           ></v-select>
           <v-select 
             v-model="formData.player1"
-            label="Player 1"
+            label="Player 1*"
             :items="playerStore.players"
+            :rules="[rules.required]"
             item-title="name"
             item-value="id"
             variant="solo"/>
@@ -71,7 +72,7 @@ import { useGameStore } from '@/stores/game';
         return;
       }
 
-      router.push('/game/' + game.id);
+      router.push(`folf/game/${game.id}`);
     }
   };
   onMounted(() => {
