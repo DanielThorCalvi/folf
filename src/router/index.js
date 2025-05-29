@@ -5,9 +5,7 @@
  */
 
 // Composables
-import { createRouter, createWebHashHistory } from 'vue-router/auto'
-import { setupLayouts } from 'virtual:generated-layouts'
-const base = import.meta.env.BASE_URL || '/folf/'
+import { createRouter, createWebHashHistory } from 'vue-router'
 const routes = [
 	{
 		path: `/`,
