@@ -12,7 +12,7 @@
             clearable
             :rules="[rules.required]"
             required
-            variant="solo"
+            variant="outlined"
           ></v-select>
           <v-select 
             v-model="formData.player1"
@@ -21,19 +21,19 @@
             :rules="[rules.required]"
             item-title="name"
             item-value="id"
-            variant="solo"/>
+            variant="outlined"/>
           <v-select 
             v-model="formData.player2"
             label="Player 2"
             :items="playerStore.players"
             item-title="name"
             item-value="id"
-            variant="solo"/>
+            variant="outlined"/>
         </v-form>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="success" icon="mdi-play" :disabled="!valid" @click="submitForm"></v-btn>
+        <v-btn icon="mdi-play" :disabled="!valid" @click="submitForm"></v-btn>
       </v-card-actions>
     </v-card>
 </template>
