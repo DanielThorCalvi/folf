@@ -1,0 +1,1 @@
+import{ae as a,aZ as t,af as o,ag as r,c as n,a_ as s}from"./index-DrXVY-t-.js";const p={__name:"default",setup(_){return(c,u)=>{const e=t("router-view");return o(),a(s,null,{default:r(()=>[n(e)]),_:1})}}};export{p as default};
