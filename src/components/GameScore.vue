@@ -13,16 +13,18 @@
           <v-col :cols="cols" v-for="(score, playerIndex) in scores" :key="playerIndex" class="text-end" >
             <v-row v-for="(value, key) in score" :key="key" class="border ">
               <v-spacer></v-spacer>
-              <span class="text-h6">{{value ?? '-'}}</span>
+              <span class="text-h6">{{value ? value : '-'}}</span>
               <v-spacer></v-spacer>
             </v-row>
           </v-col>
         </v-row>
       </v-container>
+
     </v-card-text>
   </v-card>
 </template>
 <script setup>
+import { computed } from 'vue';
   const props = defineProps({
     scores: {
       type: Array,
